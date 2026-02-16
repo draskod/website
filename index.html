@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Drasko Draskovic – Innovation & AI Strategy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0A0E14;
+            --color-surface: #151922;
+            --color-text: #E8E6E3;
+            --color-text-dim: #9B9B9B;
+            --color-accent: #FFB84D;
+            --color-accent-dim: #CC9240;
+            --color-border: #2A2F3A;
+            --font-display: 'DM Sans', sans-serif;
+            --font-body: 'Crimson Pro', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated background gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 184, 77, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(255, 184, 77, 0.02) 0%, transparent 40%);
+            animation: gradientShift 20s ease infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-5%, -5%) rotate(5deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 20, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-dim);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0 5rem;
+            position: relative;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            max-width: 1200px;
+        }
+
+        .hero-content {
+            flex: 1;
+            position: relative;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            flex-shrink: 0;
+            opacity: 0;
+            animation: fadeInScale 0.8s ease 0.3s forwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 340px;
+            height: 340px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 0 1px var(--color-border),
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(255, 184, 77, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-image-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 184, 77, 0.15) 0%,
+                rgba(255, 184, 77, 0.05) 30%,
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .hero-image-container:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 0 0 1px var(--color-accent-dim),
+                0 30px 80px rgba(0, 0, 0, 0.5),
+                0 0 120px rgba(255, 184, 77, 0.2);
+        }
+
+        .hero-image-container:hover::after {
+            opacity: 1;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(0.1) brightness(1.05);
+            transition: filter 0.5s ease;
+        }
+
+        .hero-image-container:hover .hero-image {
+            filter: grayscale(0) brightness(1.1);
+        }
+
+        .hero-accent-circle {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+            opacity: 0.15;
+            bottom: -40px;
+            right: -40px;
+            filter: blur(30px);
+            z-index: -1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.1); opacity: 0.25; }
+        }
+
+        .hero-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-dim) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--color-text-dim);
+            max-width: 800px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+        }
+
+        .hero-org {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--color-accent);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.7s forwards;
+        }
+
+        .hero-org a {
+            color: var(--color-accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--color-accent-dim);
+            transition: border-color 0.3s ease;
+        }
+
+        .hero-org a:hover {
+            border-color: var(--color-accent);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 6rem;
+            padding: 4rem 0;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.8s forwards;
+        }
+
+        .content-primary {
+            max-width: 720px;
+        }
+
+        .content-primary p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-text);
+        }
+
+        .content-primary p:first-child::first-letter {
+            font-size: 3.5em;
+            font-weight: 600;
+            line-height: 0.8;
+            float: left;
+            margin: 0.1em 0.15em 0 0;
+            color: var(--color-accent);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: relative;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 120px;
+        }
+
+        .section-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--color-accent-dim);
+        }
+
+        .section-card h3 {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-dim);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-list {
+            list-style: none;
+        }
+
+        .section-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .section-list a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .section-list a::before {
+            content: '→';
+            color: var(--color-accent);
+            opacity: 0;
+            transform: translateX(-5px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .section-list a:hover {
+            color: var(--color-accent);
+            transform: translateX(5px);
+        }
+
+        .section-list a:hover::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            color: var(--color-text);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: var(--color-bg);
+            transform: translateY(-2px);
+        }
+
+        /* Key Focus Areas */
+        .focus-areas {
+            padding: 6rem 0;
+            border-top: 1px solid var(--color-border);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 1s forwards;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .focus-card {
+            padding: 2.5rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .focus-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--color-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .focus-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-accent-dim);
+        }
+
+        .focus-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .focus-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .focus-card p {
+            color: var(--color-text-dim);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--color-text-dim);
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--color-border);
+            padding: 3rem 0;
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--color-text-dim);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--color-text-dim);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .sidebar-sticky {
+                position: static;
+            }
+
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+            }
+
+            .hero-container {
+                gap: 3rem;
+            }
+
+            .hero-image-container {
+                width: 280px;
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 3rem 0 2rem;
+            }
+
+            .hero-container {
+                flex-direction: column-reverse;
+                gap: 2.5rem;
+                align-items: flex-start;
+            }
+
+            .hero-image-container {
+                width: 240px;
+                height: 240px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .focus-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="logo">DD</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#focus">Focus Areas</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-label">AI Strategy & Innovation</div>
+                    <h1>Drasko Draskovic, PhD</h1>
+                    <p class="hero-subtitle">Accelerating learning through innovation, collaboration, and AI</p>
+                    <p class="hero-org">AI R&D Coordinator, <a href="https://acceleratorlabs.undp.org" target="_blank">UNDP Accelerator Labs</a></p>
+                </div>
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-container">
+                        <img src="drasko-photo.jpg" alt="Dr. Drasko Draskovic" class="hero-image">
+                    </div>
+                    <div class="hero-accent-circle"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="main-content" id="about">
+            <div class="content-primary">
+                <p>I am passionate about innovation, sustainable development, and creating change. At its heart, innovation is about learning—and by accelerating how we learn, we get better at figuring out what to build and how to build it.</p>
+
+                <p>I love everything about ideas — hatching them, developing them, and executing them. But what drives me most is the continuous learning that innovation demands: the discovery of new possibilities, the collaboration that expands our understanding, and the insights that emerge when diverse minds work together. These learning processes don't just generate better solutions—they attract extraordinary people. Innovators are people who believe the world can and should be a better place, and they're committed to learning their way there.</p>
+
+                <p>My work is a constant exploration of 'what-ifs' and 'why does it have to be this way.' I use creativity to introduce new ideas and novel approaches, empower teams to foster cultures of rapid learning and experimentation, and help people expand their ability to imagine different futures. Today, we have unprecedented opportunities to accelerate learning—from AI tools that help us process information faster and explore scenarios more thoroughly, to digital platforms that enable global collaboration and knowledge sharing.</p>
+
+                <p>This potential to dramatically accelerate how we learn has drawn me increasingly toward AI strategy, R&D, and accelerating AI adoption, as I see AI as one of the most powerful levers for innovation we've ever had. By harnessing these capabilities to learn more rapidly about problems, solutions, and possibilities, we cultivate the courage and capability to take action toward realizing a preferred future. This learning-centered approach supports UNDP's drive to be an incubator for the future and accelerates progress towards the 2030 Agenda.</p>
+
+                <p>An exciting and hopeful future is possible if we put our minds to it—and if we commit to learning our way forward.</p>
+            </div>
+
+            <aside class="sidebar">
+                <div class="sidebar-sticky">
+                    <div class="section-card">
+                        <h3>Explore</h3>
+                        <ul class="section-list">
+                            <li><a href="#ai">AI & Innovation</a></li>
+                            <li><a href="#future">Future of Work</a></li>
+                            <li><a href="#collective">Collective Intelligence</a></li>
+                            <li><a href="#blogs">My Writings</a></li>
+                            <li><a href="#speaking">Speaking Inquiries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="section-card">
+                        <h3>Connect</h3>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/draskod/" target="_blank" class="social-btn">
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://bsky.app/profile/draskod.bsky.social" target="_blank" class="social-btn">
+                                <span>BlueSky</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <section class="focus-areas" id="focus">
+            <h2 class="section-title">Key Focus Areas</h2>
+            <p class="section-subtitle">Where innovation meets impact: exploring the frontiers of collaborative intelligence and sustainable development</p>
+            
+            <div class="focus-grid">
+                <div class="focus-card">
+                    <h3>Artificial Intelligence</h3>
+                    <p>Exploring AI as a catalyst for accelerated learning and innovation. From strategy to implementation, I work to harness AI's potential to solve complex development challenges and expand human capabilities.</p>
+                </div>
+
+                <div class="focus-card">
+                    <h3>Future of Work</h3>
+                    <p>Reimagining how we work in an era of rapid technological change. Building frameworks for adaptive learning, creative collaboration, and organizational cultures that embrace continuous innovation.</p>
+                </div>
+
+                <div class="focus-card">
+                    <h3>Collective Intelligence</h3>
+                    <p>Leveraging diverse perspectives and collaborative networks to tackle global challenges. Creating systems that amplify human wisdom through collective sense-making and shared learning.</p>
+                </div>
+
+                <div class="focus-card">
+                    <h3>Innovation Strategy</h3>
+                    <p>Designing and implementing innovation processes that accelerate learning cycles. Helping organizations build the courage and capability to experiment, iterate, and transform ideas into impact.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2025 Drasko Draskovic. All rights reserved.
+                </div>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#focus">Focus Areas</a>
+                    <a href="/cdn-cgi/l/email-protection#e3808c8d97828097a387918290888ccd9b9a99">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.85) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Check on load
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior:
